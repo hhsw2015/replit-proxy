@@ -79,6 +79,41 @@ curl https://<master-url>/v1/messages \
   -d '{"model":"claude-haiku-4-5","max_tokens":100,"messages":[{"role":"user","content":"Hi"}]}'
 ```
 
+## Node Management
+
+Use the management script to add/remove sub-nodes dynamically (no restart needed):
+
+```bash
+# Set your master node URL first
+export MASTER_URL="https://replit-ai-skeleton--pikapk.replit.app"
+
+# List all nodes and their status
+./scripts/node-manage.sh list
+
+# Add a sub-node (just URL, key and label auto-generated)
+./scripts/node-manage.sh add https://sub1--user2.replit.app
+
+# Add with custom key and label
+./scripts/node-manage.sh add https://sub2--user3.replit.app sk-custom-key "my-sub-node"
+
+# Remove a sub-node
+./scripts/node-manage.sh rm https://sub1--user2.replit.app
+
+# List available models
+./scripts/node-manage.sh models
+
+# Test a specific model
+./scripts/node-manage.sh test claude-sonnet-4-6
+./scripts/node-manage.sh test gpt-5-mini
+
+# Help
+./scripts/node-manage.sh help
+```
+
+Changes via the script take effect **immediately** without restarting any workflow.
+
+If you prefer not to use the script, you can also set the `BACKENDS` Secret on the master node (see Step 2 above) and restart.
+
 ## Use with Claude Code
 
 ```bash
